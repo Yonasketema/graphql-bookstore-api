@@ -15,7 +15,7 @@ bookstore app is like your home book shelf
 - user authentication to allow users to create accounts and login/logout
 - a user comment for the book 
 - a user can like, save the books and see all of their saved pins later. 
-- auhorized amin user can post book
+- auhorized admin user can post book
  
 
 

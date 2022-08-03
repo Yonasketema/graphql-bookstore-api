@@ -4,15 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./api/server"
+    "test": "",
+    "start": "nodemon ./api/server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.7.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.1",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
-    "mongoose": "^6.3.4"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.4",
+    "validator": "^13.7.0"
   }
 }

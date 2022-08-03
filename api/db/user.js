@@ -20,14 +20,13 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
-      default: "user",
+      enum: ["ADMIN", "USER"],
+      default: "ADMIN",
     },
     password: {
       type: String,
       minlength: 8,
       required: [true, "please provide a password"],
-      select: false,
     },
     savedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
 
@@ -54,7 +53,6 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  //create password and update
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 12);
 
@@ -71,6 +69,7 @@ userSchema.methods.PasswordCorrect = async function (
 ) {
   return await bcrypt.compare(enterPassword, dbPassword);
 };
+
 userSchema.methods.changePasswordAt = function (iat) {
   if (this.passwordChangedAt) {
     const changePasswordAt = parseInt(

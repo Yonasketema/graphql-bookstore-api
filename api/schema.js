@@ -1,35 +1,99 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-  enum bookGenre {
-    HISTORICAL
+  enum RoleType {
+    USER
+    ADMIN
+  }
+  enum Genre {
     FICTION
     BIO
+    HISTORICAL
+    STARTUP
+    SCIENCE
+    COMIC
   }
 
-  input bookInput {
-    genre: String
+  type User {
+    name: String!
+    age: Int
+    email: String!
+    role: RoleType!
+    savedBooks: [ID]!
   }
-  input newBookInput {
-    title: String!
-    year: String!
-    author: String!
-    genre: String!
-  }
-
   type Book {
-    title: String!
-    year: String!
-    author: String!
-    genre: String!
     id: ID!
+    title: [String]!
+    author: String!
+    publicationDate: String!
+    genre: String!
+    likes: [ID]!
+    img: String!
+    comments: [Comment]!
+  }
+  input BookInput {
+    title: [String]!
+    author: String!
+    publicationDate: String!
+    genre: Genre!
+    img: String!
+  }
+  type UserName {
+    name: String
+  }
+  type Comment {
+    comment: String
+    createAt: String
+    user: UserName!
+    id: ID
+  }
+  input Bookgenre {
+    genre: String!
+  }
+  input SignupInput {
+    name: String!
+    age: Int
+    email: String!
+    password: String!
+    passwordConfirm: String!
+    role: String
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
+  input CommentInput {
+    comment: String!
+    book: ID!
+  }
+
+  type CommentRespose {
+    id: ID!
+    comment: String!
+    createAt: String!
+  }
+  type UserResponse {
+    id: ID!
+    token: String!
   }
 
   type Query {
-    books(input: bookInput): [Book]!
+    allbooks: [Book]!
+    bookgenre(input: Bookgenre): [Book]
+    book(input: ID!): Book
   }
+
   type Mutation {
-    newBook(input: newBookInput!): Book!
+    signup(input: SignupInput): UserResponse!
+    login(input: LoginInput): UserResponse!
+    comment(input: CommentInput): CommentRespose!
+    saveBook(bookId: ID): User!
+    unSaveBook(bookId: ID): User!
+    like(bookId: ID): Book!
+    disLike(bookId: ID): Book!
+    createBook(input: BookInput): Book!
   }
 `;
 

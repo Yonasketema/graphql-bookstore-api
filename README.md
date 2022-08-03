@@ -40,7 +40,6 @@ touch .env
 ```sh
 cd dev-data
 node import-dev-data.js --import
-
 ```
 ```sh
 yarn start
